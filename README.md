@@ -1,5 +1,6 @@
 # Workout Tracker
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Workout Tracker index view](./assets/screenshot.png)
 ## Description
 a simple application to practice and learn monogdb and mongoosejs
 
