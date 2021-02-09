@@ -46,7 +46,7 @@ app.get("/api/workouts", async (req, res) => {
 app.get("/api/workouts/range", async (req, res) => {
   let workouts;
   try {
-    workouts = await db.Workout.find({});
+    workouts = await db.Workout.find({}).limit(7);
     res.json(workouts);
   } catch (err) {
     console.log(err);
