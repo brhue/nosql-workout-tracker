@@ -33,48 +33,39 @@ app.get("/exercise", (req, res) => {
 });
 
 // API ROUTES
-app.get("/api/workouts", async (req, res) => {
+app.get("/api/workouts", async (req, res, next) => {
   try {
     const workouts = await db.Workout.find({});
     res.json(workouts);
   } catch (err) {
-    console.log(err);
-    res.json(err);
+    next(err);
   }
 });
 
-app.get("/api/workouts/range", async (req, res) => {
-  let workouts;
+app.get("/api/workouts/range", async (req, res, next) => {
   try {
-    workouts = await db.Workout.find({}).limit(7);
+    const workouts = await db.Workout.find({}).limit(7).sort({ day: -1 });
     res.json(workouts);
   } catch (err) {
-    console.log(err);
-    res.json(err);
+    next(err);
   }
 });
 
-app.put("/api/workouts/:id", async (req, res) => {
-  console.log(req.body);
+app.put("/api/workouts/:id", async (req, res, next) => {
   try {
     const workout = await db.Workout.findByIdAndUpdate(req.params.id, { $push: { exercises: req.body } });
-    console.log(workout);
     res.json(workout);
   } catch (err) {
-    console.error(err);
-    res.json(err);
+    next(err);
   }
 });
 
-app.post("/api/workouts", async (req, res) => {
-  console.log(req.body);
+app.post("/api/workouts", async (req, res, next) => {
   try {
     const workout = await db.Workout.create({});
-    console.log(workout);
     res.json(workout);
-  } catch (error) {
-    console.log(error);
-    res.json(error);
+  } catch (err) {
+    next(err);
   }
 });
 
